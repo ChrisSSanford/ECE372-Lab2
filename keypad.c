@@ -6,7 +6,7 @@
  * Members: Chris Houseman
  *          Randy Martinez
  *          Rachel Powers
- *          Chris Sanford
+ *          Chris Sanford :)
  *
  * Date: October 6, 2014
  *
