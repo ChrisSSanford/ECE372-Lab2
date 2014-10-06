@@ -24,7 +24,7 @@
 
 void KeypadInitialize() {
 	
-	// TODO: Configure IOs and Change Notificaiton interrupt for keypad scanning. This 
+	// TODO: Configure IOs and Change Notification interrupt for keypad scanning. This
 	// configuration should ensure that if any key is pressed, a change notification interrupt 
 	// will be generated.
 }
