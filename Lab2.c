@@ -1,4 +1,21 @@
-//chouseman
+/**************************************************************************************************/
+
+/*
+ * File: Lab2.c
+ * Team: Lambda^3
+ * Members: Chris Houseman
+ *          Randy Martinez
+ *          Rachel Powers
+ *          Chris Sanford
+ *
+ * Date: October 6, 2014
+ *
+ * Description: Code that defines functions for password system
+ *
+ */
+
+// ******************************************************************************************* //
+// ******************************************************************************************* //
 // ******************************************************************************************* //
 // Include file for PIC24FJ64GA002 microcontroller. This include file defines
 // MACROS for special function registers (SFR) and control bits within those
