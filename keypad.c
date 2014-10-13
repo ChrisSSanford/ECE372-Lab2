@@ -44,7 +44,7 @@ void KeypadInitialize() {
 char KeypadScan() {
 	char key = -1;
 	
-	
+
 	// TODO: Implement the keypad scanning procedure to detect if exactly one button of the 
 	// keypad is pressed. The function should return:
 	//
@@ -61,7 +61,101 @@ char KeypadScan() {
 	//           is processed. This is to prevent invalid keypress from being processed if the 
 	//           users presses multiple keys simultaneously.
 	//
-	return key;
+
+        // Begin Added Code
+        //while(key == -1);
+
+        int button = 0;
+
+
+        if(LATAbits.LATA1 == 0 && LATBbits.LATB3 == 0)
+        {
+            key = '1';
+            button++;
+        }
+
+        if(LATAbits.LATA0 == 0 && LATBbits.LATB3 == 0)
+        {
+            key = '2';
+            button++;
+        }
+
+        if(LATBbits.LATB2 == 0 && LATBbits.LATB3 == 0)
+        {
+            key = '3';
+            button++;
+        }
+
+        if(LATAbits.LATA1 == 0 && LATBbits.LATB11 == 0)
+        {
+            key = '4';
+            button++;
+        }
+
+        if(LATAbits.LATA0 == 0 && LATBbits.LATB11 == 0)
+        {
+            key = '5';
+            button++;
+        }
+
+        if(LATBbits.LATB2 == 0 && LATBbits.LATB11 == 0)
+        {
+            key = '6';
+            button++;
+        }
+
+        if(LATAbits.LATA1 == 0 && LATAbits.LATA3 == 0)
+        {
+            key = '7';
+            button++;
+        }
+
+        if(LATAbits.LATA0 == 0 && LATAbits.LATA3 == 0)
+        {
+            key = '8';
+            button++;
+        }
+
+        if(LATBbits.LATB2 == 0 && LATAbits.LATA3 == 0)
+        {
+            key = '9';
+            button++;
+        }
+
+        if(LATAbits.LATA1 == 0 && LATAbits.LATA2 == 0)
+        {
+            key = '*';
+            button++;
+        }
+
+        if(LATAbits.LATA0 == 0 && LATAbits.LATA2 == 0)
+        {
+            key = '0';
+            button++;
+        }
+
+        if(LATBbits.LATB2 == 0 && LATAbits.LATA2 == 0)
+            
+        {
+            key = '#';
+            button++;
+        }
+
+        if (button == 1)
+        {
+            return key;
+        }
+        else
+        {
+            return -1;
+        }
+
+
+
+
+
+        // End Added Code
+	
 }
 
 // ******************************************************************************************* //
