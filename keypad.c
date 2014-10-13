@@ -42,19 +42,19 @@ void KeypadInitialize() {
     
     // column 0
     CNPU1bits.CN2PUE = 1;
-    TRISBbits.TRISA0 = 1; //set input
+    TRISAbits.TRISA0 = 1; //set input
     AD1PCFGbits.PCFG/*missing*/  = 0; // sets as digital input
     CNEN1bits.CN2IE = 1;
     
     // column 1
-    CNPU2bits.CN3PUE = 1;
-    TRISBbits.TRISA1 = 1; //set input
+    CNPU1bits.CN3PUE = 1;
+    TRISAbits.TRISA1 = 1; //set input
     AD1PCFGbits.PCFG/*missing*/  = 0; //sets as digital input
     CNEN1bits.CN2IE = 1;
     
     // column 2
     CNPU1bits.CN6PUE = 1;
-    TRISBbits.TRISA0 = 1; //set input
+    TRISBbits.TRISB2 = 1; //set input
     AD1PCFGbits.PCFG/*missing*/  = 0; //sets as digital input
     CNEN1bits.CN2IE = 1;
     
