@@ -58,6 +58,10 @@ void KeypadInitialize() {
     AD1PCFGbits.PCFG/*missing*/  = 0; //sets as digital input
     CNEN1bits.CN2IE = 1;
     
+    //Enable Interrupts
+    IFS1bits.CNIF = 0;
+    IEC1bits.CNIE = 1;
+    
     // ******************************************************************************************* //
     
     //set rows OUTPUTS
@@ -82,9 +86,7 @@ void KeypadInitialize() {
     LATBbits.LATB11 = 0;
     ODCBbits.ODB11 = 1;  //enable open drain
     
-    //Enable Interrupts
-    IFS1bits.CNIF = 0;
-    IEC1bits.CNIE = 1;
+
 }
 
 // ******************************************************************************************* //
