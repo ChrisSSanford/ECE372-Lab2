@@ -68,86 +68,86 @@ char KeypadScan() {
         int button = 0;
 
 
-        if(LATAbits.LATA1 == 0 && LATBbits.LATB3 == 0)
+        if(LATAbits.LATA1 == 0 && LATBbits.LATB3 == 0)  // if this input and output are set, print 1
         {
             key = '1';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA0 == 0 && LATBbits.LATB3 == 0)
+        if(LATAbits.LATA0 == 0 && LATBbits.LATB3 == 0)  // if this input and output are set, print 2
         {
             key = '2';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATBbits.LATB2 == 0 && LATBbits.LATB3 == 0)
+        if(LATBbits.LATB2 == 0 && LATBbits.LATB3 == 0)  // if this input and output are set, print 3
         {
             key = '3';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA1 == 0 && LATBbits.LATB11 == 0)
+        if(LATAbits.LATA1 == 0 && LATBbits.LATB11 == 0)  // if this input and output are set, print 4
         {
             key = '4';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA0 == 0 && LATBbits.LATB11 == 0)
+        if(LATAbits.LATA0 == 0 && LATBbits.LATB11 == 0)  // if this input and output are set, print 5
         {
             key = '5';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATBbits.LATB2 == 0 && LATBbits.LATB11 == 0)
+        if(LATBbits.LATB2 == 0 && LATBbits.LATB11 == 0)  // if this input and output are set, print 6
         {
             key = '6';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA1 == 0 && LATAbits.LATA3 == 0)
+        if(LATAbits.LATA1 == 0 && LATAbits.LATA3 == 0)  // if this input and output are set, print 7
         {
             key = '7';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA0 == 0 && LATAbits.LATA3 == 0)
+        if(LATAbits.LATA0 == 0 && LATAbits.LATA3 == 0)  // if this input and output are set, print 8
         {
             key = '8';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATBbits.LATB2 == 0 && LATAbits.LATA3 == 0)
+        if(LATBbits.LATB2 == 0 && LATAbits.LATA3 == 0)  // if this input and output are set, print 9
         {
             key = '9';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA1 == 0 && LATAbits.LATA2 == 0)
+        if(LATAbits.LATA1 == 0 && LATAbits.LATA2 == 0)  // if this input and output are set, print *
         {
             key = '*';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATAbits.LATA0 == 0 && LATAbits.LATA2 == 0)
+        if(LATAbits.LATA0 == 0 && LATAbits.LATA2 == 0)  // if this input and output are set, print 0
         {
             key = '0';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if(LATBbits.LATB2 == 0 && LATAbits.LATA2 == 0)
+        if(LATBbits.LATB2 == 0 && LATAbits.LATA2 == 0)  // if this input and output are set, print #
             
         {
             key = '#';
-            button++;
+            button++;   // adds 1 to the value of button
         }
 
-        if (button == 1)
+        if (button == 1)    // if the button value is set to one
         {
-            return key;
+            return key;     // return the value of key
         }
         else
         {
-            return -1;
+            return -1;      // otherwise, if more than one button is pressed or no buttons are pressed, return -1
         }
 
 
