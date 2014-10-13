@@ -8,7 +8,7 @@
  *          Rachel Powers
  *          Chris Sanford
  *
- * Date: October 6, 2014
+ * Date: October 17, 2014
  *
  * Description: Code that defines keypad functions
  *
