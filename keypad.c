@@ -37,6 +37,54 @@ void KeypadInitialize() {
 	// TODO: Configure IOs and Change Notification interrupt for keypad scanning. This
 	// configuration should ensure that if any key is pressed, a change notification interrupt 
 	// will be generated.
+    //set columns INPUTS
+    //configure RA0 pull up resistor
+    
+    // column 0
+    CNPU1bits.CN2PUE = 1;
+    TRISBbits.TRISA0 = 1; //set input
+    AD1PCFGbits.PCFG/*missing*/  = 0; // sets as digital input
+    CNEN1bits.CN2IE = 1;
+    
+    // column 1
+    CNPU2bits.CN3PUE = 1;
+    TRISBbits.TRISA1 = 1; //set input
+    AD1PCFGbits.PCFG/*missing*/  = 0; //sets as digital input
+    CNEN1bits.CN2IE = 1;
+    
+    // column 2
+    CNPU1bits.CN6PUE = 1;
+    TRISBbits.TRISA0 = 1; //set input
+    AD1PCFGbits.PCFG/*missing*/  = 0; //sets as digital input
+    CNEN1bits.CN2IE = 1;
+    
+    // ******************************************************************************************* //
+    
+    //set rows OUTPUTS
+    
+    //Row 0
+    TRISBbits.TRISB3 = 0;	//enable as output
+    LATBbits.LATB3 = 0;
+    ODCBbits.ODB3 = 1;  //enable open drain
+    
+    //Row 1
+    TRISAbits.TRISA2 = 0;	//enable as output
+    LATAbits.LATA2 = 0;
+    ODCAbits.ODA2 = 1;  //enable open drain
+    
+    //Row 2
+    TRISBbits.TRISA3 = 0;	//enable as output
+    LATAbits.LATA3 = 0;
+    ODCAbits.ODA3 = 1;  //enable open drain
+    
+    //Row 3
+    TRISBbits.TRISB11 = 0;	//enable as output
+    LATBbits.LATB11 = 0;
+    ODCBbits.ODB11 = 1;  //enable open drain
+    
+    //Enable Interrupts
+    IFS1bits.CNIF = 0;
+    IEC1bits.CNIE = 1;
 }
 
 // ******************************************************************************************* //
