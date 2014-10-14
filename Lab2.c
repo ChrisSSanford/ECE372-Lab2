@@ -64,6 +64,8 @@ int main(void)
 	KeypadInitialize();
 	
 	// TODO: Initialize scanKeypad variable.
+    scanKeypad = 0;
+
 	
 	while(1)
 	{
@@ -101,6 +103,7 @@ void __attribute__((interrupt)) _CNInterrupt(void)
 	
 	// TODO: Detect if *any* key of the keypad is *pressed*, and update scanKeypad
 	// variable to indicate keypad scanning process must be executed.
+    scanKeypad = 1;
 }
 
 // ******************************************************************************************* //
