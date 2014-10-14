@@ -24,6 +24,7 @@
 #include "p24fj64ga002.h"
 #include <stdio.h>
 #include "lcd.h"
+#include "keypad.h"
 
 // ******************************************************************************************* //
 // Configuration bits for CONFIG1 settings. 
@@ -98,6 +99,7 @@ void __attribute__((interrupt)) _CNInterrupt(void)
 {	
 	// TODO: Clear interrupt flag
 	IFS1bits.CNIF = 0;
+        scanKeypad = 1;
 	
 	// TODO: Detect if *any* key of the keypad is *pressed*, and update scanKeypad
 	// variable to indicate keypad scanning process must be executed.
