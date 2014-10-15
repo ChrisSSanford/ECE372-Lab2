@@ -286,7 +286,7 @@ char KeypadScan() {
     //This loop runs through and sets each row individually to 1 while checking column inputs to determine which key is pressed
     for (i = 0; i < 4; i++){
         //LATB |= 0xF000;  //Make sure all outputs to rows begin as 1
-        LATA &= 0xFFF0;  //Make sure all outputs to rows begin as 1
+        LATA |= 0x000F;  //Make sure all outputs to rows begin as 1
         toggle = 0xFFF7;  //begin with toggle = 1111 1111 1111 0111
 
         toggle = toggle >> i;  //shift the 0 over by i
