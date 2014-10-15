@@ -229,24 +229,23 @@ void LCDClear(void) {
 //    unsigned char y : coordinate for LCD column (0 to 7)
 
 void LCDMoveCursor(unsigned char x, unsigned char y) {
-
+    
 	// Write the proper control instruction to move the cursor to the specified
 	// (x,y) coordinate. This operation should be performance as a single control
 	// control instruction, i.e. a single call the WriteLCD() function.
-
-
+    
+    
     unsigned char tempAddress = 0;
     if (x>0) {
-		tempAddress = 40 + y;
+		tempAddress = 0x40 + y;
     }
 	else {
-		tempAddress = y;
-        tempAddress|=0x80; //add 1 at 7th bit
+        tempAddress = y;
     }
+    tempAddress|=0x80; //add 1 at 7th bit
 	WriteLCD(tempAddress, LCD_WRITE_CONTROL, 40);
-
+    
 }
-
 // ******************************************************************************************* //
 
 // LCDPrintChar should print a single ASCII character to the LCD diplay at the
