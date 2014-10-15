@@ -68,7 +68,12 @@ int main(void)
 	LCDMoveCursor(0,0);
 	
 	// TODO: Initialize scanKeypad variable.
+<<<<<<< HEAD
         scanKeypad = 0;
+=======
+    scanKeypad = 0;
+
+>>>>>>> 71185fc849631028f60352297d79edb77a235f88
 	
 	while(1)
 	{
@@ -116,6 +121,7 @@ void __attribute__((interrupt)) _CNInterrupt(void)
 	
 	// TODO: Detect if *any* key of the keypad is *pressed*, and update scanKeypad
 	// variable to indicate keypad scanning process must be executed.
+    scanKeypad = 1;
 }
 
 // ******************************************************************************************* //

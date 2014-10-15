@@ -15,13 +15,13 @@
  */
 
 /*
- * Pin2 = In1 = RA0 = CN2
- * Pin3 = In3 = RA1 = CN3
- * Pin6 = In5 = RB2 = CN6
- * Pin7 = Out2 = RB3 = //CN7
- * Pin9 = Out4 = RA2 = //CN30
- * Pin10 = Out6 = RA3 = //CN29
- * Pin22 = Out7 = RB11 = //CN15
+ * Row0 = Out3 => Pin2 = RA0 = //CN2
+ * Row1 = Out7 => Pin3 = RA1 = //CN3
+ * Row2 = Out6 => Pin9 = RA2 = //CN30
+ * Row3 = Out4 => Pin10 = RA3 = //CN29
+ * Col0 = In3 => Pin6 = RB2 = CN6
+ * Col1 = In1 => Pin7 = RB3 = CN7
+ * Col2 = In5 => Pin14 = RB5 = CN27
  */
 
 // ******************************************************************************************* //
