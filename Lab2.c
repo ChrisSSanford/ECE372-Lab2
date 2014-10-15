@@ -68,12 +68,12 @@ int main(void)
 	LCDMoveCursor(0,0);
 	
 	// TODO: Initialize scanKeypad variable.
-<<<<<<< HEAD
+//<<<<<<< HEAD
         scanKeypad = 0;
-=======
+//=======
     scanKeypad = 0;
 
->>>>>>> 71185fc849631028f60352297d79edb77a235f88
+//>>>>>>> 71185fc849631028f60352297d79edb77a235f88
 	
 	while(1)
 	{
