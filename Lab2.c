@@ -69,14 +69,14 @@ int main(void)
 	// Initialize 32-bit timer
         TMR4 = 0;
         TMR5 = 0;
-        PR4 = 0b0101110111111111;
-        PR5 = 0b11010;
+        PR4 = 0b1111111111111111;
+        PR5 = 0b111000001;
         IFS1bits.T5IF = 0;
         IEC1bits.T5IE = 1;
         T4CONbits.T32 = 1;
-        T4CONbits.TON = 1;
-        T4CONbits.TCKPS0 = 1;
-        T4CONbits.TCKPS1 = 1;
+        T4CONbits.TON = 0;
+        T4CONbits.TCKPS0 = 0;
+        T4CONbits.TCKPS1 = 0;
 
 	LCDInitialize();
 	KeypadInitialize();
@@ -124,7 +124,7 @@ int main(void)
             case 2:
                 LCDMoveCursor(0,0);
                 LCDPrintString("Good");
-                state = 0;
+                state = 6;
 //                PasswordArrayInit();
 //                LCDClear();
 //                LCDMoveCursor(0,0);
@@ -146,10 +146,13 @@ int main(void)
 
             //State 6: Timer Countdown
             case 6:
+                LCDMoveCursor(0,0);
+                LCDPrintString("Time");
                 TMR4 = 0;
                 TMR5 = 0;
                 T4CONbits.TON = 1;
                 while(timerFlag!=1);
+                timerFlag=0;
                 state=0;
                 LCDClear();
                 break;
