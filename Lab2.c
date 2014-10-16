@@ -82,11 +82,14 @@ int main(void)
                 case 0:
                     LCDMoveCursor(0,0);
                     LCDPrintString("Enter");
+                    if( scanKeypad == 1 ) {
+                        state = 1;
+                    scanKeypad = 0;
+                    }
                     break;
 
                 case 1:
-                    if( scanKeypad == 1 ) {
-                        key = KeypadScan();
+                    key = KeypadScan();
                         if( key != -1 ) {
                             LCDMoveCursor(1,0);
                             LCDPrintChar(key);
@@ -111,8 +114,7 @@ int main(void)
 //                                state = 2;
 //                            }
                         }
-                        scanKeypad = 0;
-                    }
+                        
                     break;
 		
 	}
