@@ -57,6 +57,8 @@ volatile char scanKeypad;
 int main(void)
 {
 	char key;
+
+
 	
 	// TODO: Initialize and configure IOs, LCD (using your code from Lab 1), 
 	// UART (if desired for debugging), and any other configurations that are needed.
