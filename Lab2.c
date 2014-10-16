@@ -150,7 +150,7 @@ int main(void)
             case 7:
                 LCDClear();
                 LCDMoveCursor(0,0);
-                LCDPrintString("State4");
+                LCDPrintString("State7");
                 DelayUs(100000000);
                 state = 0;
 //                PasswordArrayInit();
