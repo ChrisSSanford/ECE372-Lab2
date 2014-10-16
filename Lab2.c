@@ -81,6 +81,7 @@ int main(void)
             //Wait for user input
                 case 0:
                     LCDMoveCursor(0,0);
+                    LCDClear();
                     LCDPrintString("Enter");
                     if( scanKeypad == 1 ) {
                         state = 1;
