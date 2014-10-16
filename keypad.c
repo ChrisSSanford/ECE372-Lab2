@@ -205,7 +205,7 @@ char KeypadScan() {
                 LCDMoveCursor(0,4);
                 LCDPrintChar(i);
                 LCDMoveCursor(0,0);
-                key = '3'
+                key = '3';
                 //key = '*';
                 keyDetect++;
             }
