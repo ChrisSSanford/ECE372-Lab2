@@ -67,11 +67,21 @@ int main(void)
 	
 	// TODO: Initialize scanKeypad variable.
 
+
+
+    scanKeypad = 0;
+
+
+
+
         scanKeypad = 0;
 
 
+<<<<<<< HEAD
             LCDPrintString("rawr");
             LCDMoveCursor(0,0);
+=======
+>>>>>>> 6f924893aca14dd56fa7744fcfa935f9a181e9bb
 	
 	while(1)
 	{
