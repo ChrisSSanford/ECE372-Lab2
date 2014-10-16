@@ -52,6 +52,7 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 
 volatile char scanKeypad;
 volatile int state = 0;
+volatile int timerFlag=0;
 
 // ******************************************************************************************* //
 
@@ -64,7 +65,19 @@ int main(void)
 	
 	// TODO: Initialize and configure IOs, LCD (using your code from Lab 1), 
 	// UART (if desired for debugging), and any other configurations that are needed.
-	
+
+	// Initialize 32-bit timer
+        TMR4 = 0;
+        TMR5 = 0;
+        PR4 = 0b0101110111111111;
+        PR5 = 0b11010;
+        IFS1bits.T5IF = 0;
+        IEC1bits.T5IE = 1;
+        T4CONbits.T32 = 1;
+        T4CONbits.TON = 1;
+        T4CONbits.TCKPS0 = 1;
+        T4CONbits.TCKPS1 = 1;
+
 	LCDInitialize();
 	KeypadInitialize();
 
@@ -109,10 +122,8 @@ int main(void)
                     break;
             //State 2: Enter Password
             case 2:
-                LCDClear();
                 LCDMoveCursor(0,0);
-                LCDPrintString("State2");
-                DelayUs(100000000);
+                LCDPrintString("Good");
                 state = 0;
 //                PasswordArrayInit();
 //                LCDClear();
@@ -123,25 +134,31 @@ int main(void)
 
             //State 4: Bad Password
             case 4:
-                LCDClear();
                 LCDMoveCursor(0,0);
-                LCDPrintString("State4");
-                DelayUs(100000000);
-                state = 0;
+                LCDPrintString("Bad");
+                state = 6;
 //                PasswordArrayInit();
 //                LCDClear();
 //                LCDMoveCursor(0,0);
 //                LCDPrintString("Bad");
 //                state=6;
                 break;
-                
+
+            //State 6: Timer Countdown
+            case 6:
+                TMR4 = 0;
+                TMR5 = 0;
+                T4CONbits.TON = 1;
+                while(timerFlag!=1);
+                state=0;
+                LCDClear();
+                break;
+
             //State 7: Set Password
             case 7:
-                LCDClear();
                 LCDMoveCursor(0,0);
-                LCDPrintString("State7");
-                DelayUs(100000000);
-                state = 0;
+                LCDPrintString("Set Mode");
+                state = 6;
 //                PasswordArrayInit();
 //                LCDClear();
 //                LCDMoveCursor(0,0);
@@ -153,7 +170,25 @@ int main(void)
         }
 	return 0;
 }
+// ******************************************************************************************* //
+// Defines an interrupt service routine that will execute whenever Timer 5's
+// count reaches the specfied period value defined within the PR5 register.
+//
+//     _ISR and _ISRFAST are macros for specifying interrupts that
+//     automatically inserts the proper interrupt into the interrupt vector
+//     table
+//
+//     _T1Interrupt is a macro for specifying the interrupt for Timer 1
+//
+// The functionality defined in an interrupt should be a minimal as possible
+// to ensure additional interrupts can be processed.
+//void _ISR _T1Interrupt(void)
 
+
+void __attribute__((interrupt,auto_psv)) _T5Interrupt(void){
+    IFS1bits.T5IF = 0;
+    timerFlag=1;
+}
 // ******************************************************************************************* //
 // Defines an interrupt service routine that will execute whenever any enable
 // input change notifcation is detected.
