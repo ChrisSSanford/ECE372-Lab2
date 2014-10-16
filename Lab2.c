@@ -71,7 +71,7 @@ int main(void)
 	// TODO: Initialize scanKeypad variable.
         scanKeypad = 0;
 
-        LCDPrintString("rawr");
+        LCDPrintString("Hello");
         LCDMoveCursor(0,0);
 	
 	while(1)
@@ -82,6 +82,37 @@ int main(void)
                 case 0:
                     LCDMoveCursor(0,0);
                     LCDPrintString("Enter");
+                    break;
+
+                case 1:
+                    if( scanKeypad == 1 ) {
+                        key = KeypadScan();
+                        if( key != -1 ) {
+                            LCDMoveCursor(1,0);
+                            LCDPrintChar(key);
+                            if (key == '#') {
+                                state=0;
+                            }
+//                            else if (key == '*') {
+//                                scanKeypad=0;
+//                                while (scanKeypad != 1);
+//                                starkey = KeypadScan();
+//                                if (key!= -1) {
+//                                    if (starkey == '*'){
+//                                        state = 7;
+//                                    }
+//                                    else {
+//                                        state = 4;
+//                                    }
+//                                }
+//                            }
+//                            else {
+//                                password[0]=key;
+//                                state = 2;
+//                            }
+                        }
+                        scanKeypad = 0;
+                    }
                     break;
 		
 	}
