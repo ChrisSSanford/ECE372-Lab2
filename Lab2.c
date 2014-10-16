@@ -66,22 +66,10 @@ int main(void)
 
 	
 	// TODO: Initialize scanKeypad variable.
-
-
-
-    scanKeypad = 0;
-
-
-
-
         scanKeypad = 0;
 
-
-<<<<<<< HEAD
-            LCDPrintString("rawr");
-            LCDMoveCursor(0,0);
-=======
->>>>>>> 6f924893aca14dd56fa7744fcfa935f9a181e9bb
+        LCDPrintString("rawr");
+        LCDMoveCursor(0,0);
 	
 	while(1)
 	{
@@ -93,12 +81,12 @@ int main(void)
                     LCDPrintString("Scan1");
                     LCDMoveCursor(0,0);
 			key = KeypadScan();
-                        LCDPrintString("Scan2");
-                        LCDMoveCursor(0,0);
+                    LCDPrintString("Scan2");
+                    LCDMoveCursor(0,0);
 			if( key != -1 ) {
 				LCDMoveCursor(1,0);
 				LCDPrintChar(key);
-                                LCDMoveCursor(0,0);
+                        LCDMoveCursor(0,0);
 			}
 			scanKeypad = 0;
 		}		
@@ -122,7 +110,6 @@ void __attribute__((interrupt)) _CNInterrupt(void)
 {	
 	// TODO: Clear interrupt flag
 	IFS1bits.CNIF = 0;
-        scanKeypad = 1;
 	
 	// TODO: Detect if *any* key of the keypad is *pressed*, and update scanKeypad
 	// variable to indicate keypad scanning process must be executed.
