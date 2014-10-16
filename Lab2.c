@@ -51,6 +51,7 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 // and the KeypadScan() function needs to be called.
 
 volatile char scanKeypad;
+volatile int state = 0;
 
 // ******************************************************************************************* //
 
@@ -75,24 +76,16 @@ int main(void)
 	
 	while(1)
 	{
-		// TODO: Once you create the correct keypad driver (Part 1 of the lab assignment), write
-		// the C program that use both the keypad and LCD drivers to implement the 4-digit password system.
-
-
-		if( scanKeypad == 1 ) {
-                    LCDPrintString("Scan1");
+            switch(state){
+            //State 0: Ready State
+            //Wait for user input
+                case 0:
                     LCDMoveCursor(0,0);
-			key = KeypadScan();
-                    LCDPrintString("Scan2");
-                    LCDMoveCursor(0,0);
-			if( key != -1 ) {
-				LCDMoveCursor(1,0);
-				LCDPrintChar(key);
-                        LCDMoveCursor(0,0);
-			}
-			scanKeypad = 0;
-		}		
+                    LCDPrintString("Enter");
+                    break;
+		
 	}
+        }
 	return 0;
 }
 
