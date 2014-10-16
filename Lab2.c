@@ -83,7 +83,6 @@ int main(void)
             //Wait for user input
                 case 0:
                     LCDMoveCursor(0,0);
-                    LCDClear();
                     LCDPrintString("Enter");
                     if( scanKeypad == 1 ) {
                         state = 1;
@@ -121,7 +120,11 @@ int main(void)
                     break;
             //State 2: Enter Password
             case 2:
+                LCDClear();
+                LCDMoveCursor(0,0);
                 LCDPrintString("State2");
+                DelayUs(100000000);
+                state = 0;
 //                PasswordArrayInit();
 //                LCDClear();
 //                LCDMoveCursor(0,0);
@@ -131,7 +134,11 @@ int main(void)
 
             //State 4: Bad Password
             case 4:
+                LCDClear();
+                LCDMoveCursor(0,0);
                 LCDPrintString("State4");
+                DelayUs(100000000);
+                state = 0;
 //                PasswordArrayInit();
 //                LCDClear();
 //                LCDMoveCursor(0,0);
@@ -141,7 +148,11 @@ int main(void)
                 
             //State 7: Set Password
             case 7:
+                LCDClear();
+                LCDMoveCursor(0,0);
                 LCDPrintString("State4");
+                DelayUs(100000000);
+                state = 0;
 //                PasswordArrayInit();
 //                LCDClear();
 //                LCDMoveCursor(0,0);
