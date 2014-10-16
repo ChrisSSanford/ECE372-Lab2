@@ -58,7 +58,6 @@ volatile int state = 0;
 int main(void)
 {
 	char key;
-        char starkey;
         char password[4];
 
 
@@ -99,18 +98,8 @@ int main(void)
                                 state=4;
                             }
                             else if (key == '*') {
-                                scanKeypad=0;
-                                while (scanKeypad != 1);
-                                starkey = KeypadScan();
-                                if (key!= -1) {
-                                    if (starkey == '*'){
-                                        state = 7;
-                                    }
-                                    else {
-                                        state = 4;
-                                    }
+                                state = 7;
                                 }
-                            }
                             else {
                                 password[0]=key;
                                 state = 2;
