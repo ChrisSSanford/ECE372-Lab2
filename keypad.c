@@ -21,7 +21,7 @@
  * Row3 = Out4 => Pin10 = RA3 = //CN29
  * Col0 = In3 => Pin6 = RB2 = CN6
  * Col1 = In1 => Pin7 = RB3 = CN7
- * Col2 = In5 => Pin22 = RB5 = CN27
+ * Col2 = In5 => Pin22 = RB11 = CN27
  */
 
 // ******************************************************************************************* //
@@ -126,7 +126,7 @@ void KeypadInitialize()
         //configure RB11 as input
         TRISBbits.TRISB11 =1; //set input
     	CNPU1bits.CN15PUE = 1;
-	CNEN1bits.CN15IE = 1;
+        CNEN1bits.CN15IE = 1;
 
 	//configure RB3 pull up resistors
 	//column 1
@@ -177,82 +177,104 @@ char KeypadScan() {
 
 
         if (PORTBbits.RB11 == 0) {
-            if (i == 3){
-                key = '1';
-                keyDetect++;
-            }
-            else if (i == 2){
-                key = '4';
+            if (i == 0){
+                LCDMoveCursor(0,0);
+                LCDPrintChar(i);
+                LCDMoveCursor(0,0);
+                key = '#';
+                //key = '1';
                 keyDetect++;
             }
             else if (i == 1){
-                key = '7';
+                LCDMoveCursor(0,2);
+                LCDPrintChar(i);
+                LCDMoveCursor(0,0);
+                key = '9';
+                //key = '4';
                 keyDetect++;
             }
-            else if (i == 0){
-                key = '*';
+            else if (i == 2){
+                LCDMoveCursor(0,3);
+                LCDPrintChar(i);
+                LCDMoveCursor(0,0);
+                key = '6';
+                //key = '7';
+                keyDetect++;
+            }
+            else if (i == 3){
+                LCDMoveCursor(0,4);
+                LCDPrintChar(i);
+                LCDMoveCursor(0,0);
+                key = '3'
+                //key = '*';
                 keyDetect++;
             }
         }
 
         if (PORTBbits.RB3 == 0){
             if (i == 0){
-                key = '2';
+                key = '0';
+                //key = '2';
                 keyDetect++;
             }
             else if (i == 1){
-                key = '5';
+                key = '8';
+                //key = '5';
                 keyDetect++;
             }
             else if (i == 2){
-                key = '8';
+                key = '5';
+                //key = '8';
                 keyDetect++;
             }
             else if (i == 3){
-                key = '0';
+                key = '2';
+                //key = '0';
                 keyDetect++;
             }
         }
 
         if (PORTBbits.RB2 == 0){
             if (i == 0){
-                key = '3';
+                key = '*';
+                //key = '3';
                 keyDetect++;
             }
             else if (i == 1){
-                key = '6';
+                key = '7';
+                //key = '6';
                 keyDetect++;
             }
             else if (i == 2){
-                key = '9';
+                key = '4';
+                //key = '9';
                 keyDetect++;
             }
             else if (i == 3){
-                key = '#';
+                key = '1';
+                //key = '#';
                 keyDetect++;
             }
         }
+        LATA = LATA & 0xFFF0;  //reset rows to all 0
     }
 
     if (keyDetect > 1) { //check if more than one key is pressed and return special character if so
         LCDMoveCursor(1,0);
-	LCDPrintString("s");
+        LCDPrintString("s");
         LCDMoveCursor(0,0);
         keyDetect=0;
         key=-1;
-        LATA = LATA & 0xFFF0;  //reset rows to all 0
         return key; //returns key found
     }
 
     else if (keyDetect == 1) { //check if no key is pressed
         keyDetect=0;
-        LATA = LATA & 0xFFF0;  //reset rows to all 0
         return key;
     }
     else {
         key=-1;
         keyDetect=0;
-        LATA = LATA & 0xFFF0;  //reset rows to all 0
         return key;
     }
     //LATB = LATB & 0x0FFF;  //reset rows to all 0
