@@ -58,6 +58,8 @@ volatile int state = 0;
 int main(void)
 {
 	char key;
+        char starkey;
+        char password[4];
 
 
 	
@@ -95,28 +97,57 @@ int main(void)
                             LCDMoveCursor(1,0);
                             LCDPrintChar(key);
                             if (key == '#') {
-                                state=0;
+                                state=4;
                             }
-//                            else if (key == '*') {
-//                                scanKeypad=0;
-//                                while (scanKeypad != 1);
-//                                starkey = KeypadScan();
-//                                if (key!= -1) {
-//                                    if (starkey == '*'){
-//                                        state = 7;
-//                                    }
-//                                    else {
-//                                        state = 4;
-//                                    }
-//                                }
-//                            }
-//                            else {
-//                                password[0]=key;
-//                                state = 2;
-//                            }
+                            else if (key == '*') {
+                                scanKeypad=0;
+                                while (scanKeypad != 1);
+                                starkey = KeypadScan();
+                                if (key!= -1) {
+                                    if (starkey == '*'){
+                                        state = 7;
+                                    }
+                                    else {
+                                        state = 4;
+                                    }
+                                }
+                            }
+                            else {
+                                password[0]=key;
+                                state = 2;
+                            }
                         }
                         
                     break;
+            //State 2: Enter Password
+            case 2:
+                LCDPrintString("State2");
+//                PasswordArrayInit();
+//                LCDClear();
+//                LCDMoveCursor(0,0);
+//                LCDPrintString("Bad");
+//                state=6;
+                break;
+
+            //State 4: Bad Password
+            case 4:
+                LCDPrintString("State4");
+//                PasswordArrayInit();
+//                LCDClear();
+//                LCDMoveCursor(0,0);
+//                LCDPrintString("Bad");
+//                state=6;
+                break;
+                
+            //State 7: Set Password
+            case 7:
+                LCDPrintString("State4");
+//                PasswordArrayInit();
+//                LCDClear();
+//                LCDMoveCursor(0,0);
+//                LCDPrintString("Bad");
+//                state=6;
+                break;
 		
 	}
         }
