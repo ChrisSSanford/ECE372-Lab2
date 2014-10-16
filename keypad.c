@@ -15,13 +15,13 @@
  */
 
 /*
- * Row0 = Out3 => Pin2 = RA0 = //CN2
+ * Row0 = Out2 => Pin2 = RA0 = //CN2
  * Row1 = Out7 => Pin3 = RA1 = //CN3
  * Row2 = Out6 => Pin9 = RA2 = //CN30
  * Row3 = Out4 => Pin10 = RA3 = //CN29
  * Col0 = In3 => Pin6 = RB2 = CN6
  * Col1 = In1 => Pin7 = RB3 = CN7
- * Col2 = In5 => Pin14 = RB5 = CN27
+ * Col2 = In5 => Pin22 = RB5 = CN27
  */
 
 // ******************************************************************************************* //
@@ -102,49 +102,46 @@ void KeypadInitialize()
 
 	//Row 1
 	TRISAbits.TRISA1 =0;
-	//AD1PCFGbits.PCFG = 1;
+	AD1PCFGbits.PCFG1 = 1;
 	LATAbits.LATA1 = 0;
 	ODCAbits.ODA1 = 1;  //enable open drain
 
 	//Row 2
 	TRISAbits.TRISA2 = 0;
-	//AD1PCFGbits.PCFG = 1;
 	LATAbits.LATA2 = 0;
 	ODCAbits.ODA2 = 1;  //enable open drain
 
 	//Row 3
 	TRISAbits.TRISA3 =0;
-	//AD1PCFGbits.PCFG = 1;
 	LATAbits.LATA3 = 0;
 	ODCAbits.ODA3 = 1;  //enable open drain
 
 // ******************************************************************************************* //
-	//configure RB5 pullup resistors
-	//column 2
-	CNPU2bits.CN27PUE = 1;
-	TRISBbits.TRISB5 =1; //set input
-	//IFS1bits.CNIF = 0;
-	CNEN2bits.CN27IE = 1;
-
+//	//configure RB5 pullup resistors
+//	//column 2
+//	TRISBbits.TRISB5 =1; //set input
+//	CNPU2bits.CN27PUE = 1;
+//	CNEN2bits.CN27IE = 1;
+//
+        //configure RB11 as input
+        TRISBbits.TRISB11 =1; //set input
+    	CNPU1bits.CN15PUE = 1;
+	CNEN1bits.CN15IE = 1;
 
 	//configure RB3 pull up resistors
 	//column 1
-	CNPU1bits.CN7PUE = 1;
 	TRISBbits.TRISB3 =1;
-	//IFS1bits.CNIF = 0;
+	CNPU1bits.CN7PUE = 1;
 	CNEN1bits.CN7IE =1;
-	IEC1bits.CNIE = 1;
 	AD1PCFGbits.PCFG5 = 1;
 
 
 
 	//configure RB2 pull up resistors
 	//column 0
-	CNPU1bits.CN6PUE = 1 ;
 	TRISBbits.TRISB2 =1 ; //enable as an input
-	IFS1bits.CNIF = 0;
+	CNPU1bits.CN6PUE = 1 ;
 	CNEN1bits.CN6IE = 1;
-	IEC1bits.CNIE = 1;
 	AD1PCFGbits.PCFG4 = 1;
 
         IEC1bits.CNIE = 1;
@@ -161,127 +158,10 @@ void KeypadInitialize()
 
 char KeypadScan() {
 
-//	char key = -1;
-//
-//
-//	// TODO: Implement the keypad scanning procedure to detect if exactly one button of the
-//	// keypad is pressed. The function should return:
-//	//
-//	//      -1         : Return -1 if no keys are pressed.
-//	//      '0' - '9'  : Return the ASCII character '0' to '9' if one of the
-//	//                   numeric (0 - 9) keys are pressed.
-//	//      '#'        : Return the ASCII character '#' if the # key is pressed.
-//	//      '*'        : Return the ASCII character '*' if the * key is pressed.
-//	//       -1        : Return -1 if more than one key is pressed simultaneously.
-//	// Notes:
-//	//        1. Only valid inputs should be allowed by the user such that all invalid inputs
-//	//           are ignored until a valid input is detected.
-//	//        2. The user must release all keys of the keypad before the following key press
-//	//           is processed. This is to prevent invalid keypress from being processed if the
-//	//           users presses multiple keys simultaneously.
-//	//
-//
-//        // Begin Added Code
-//        //while(key == -1);
-//
-//        int button = 0;
-//
-//
-//        if(LATAbits.LATA1 == 0 && LATBbits.LATB3 == 0)  // if this input and output are set, print 1
-//        {
-//            key = '1';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA0 == 0 && LATBbits.LATB3 == 0)  // if this input and output are set, print 2
-//        {
-//            key = '2';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATBbits.LATB2 == 0 && LATBbits.LATB3 == 0)  // if this input and output are set, print 3
-//        {
-//            key = '3';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA1 == 0 && LATBbits.LATB11 == 0)  // if this input and output are set, print 4
-//        {
-//            key = '4';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA0 == 0 && LATBbits.LATB11 == 0)  // if this input and output are set, print 5
-//        {
-//            key = '5';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATBbits.LATB2 == 0 && LATBbits.LATB11 == 0)  // if this input and output are set, print 6
-//        {
-//            key = '6';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA1 == 0 && LATAbits.LATA3 == 0)  // if this input and output are set, print 7
-//        {
-//            key = '7';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA0 == 0 && LATAbits.LATA3 == 0)  // if this input and output are set, print 8
-//        {
-//            key = '8';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATBbits.LATB2 == 0 && LATAbits.LATA3 == 0)  // if this input and output are set, print 9
-//        {
-//            key = '9';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA1 == 0 && LATAbits.LATA2 == 0)  // if this input and output are set, print *
-//        {
-//            key = '*';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATAbits.LATA0 == 0 && LATAbits.LATA2 == 0)  // if this input and output are set, print 0
-//        {
-//            key = '0';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if(LATBbits.LATB2 == 0 && LATAbits.LATA2 == 0)  // if this input and output are set, print #
-//
-//        {
-//            key = '#';
-//            button++;   // adds 1 to the value of button
-//        }
-//
-//        if (button == 1)    // if the button value is set to one
-//        {
-//            return key;     // return the value of key
-//        }
-//        else
-//        {
-//            return -1;      // otherwise, if more than one button is pressed or no buttons are pressed, return -1
-//        }
-
-
-//Begin Added Code
-
-        int i = 0; //i is the index for the for loop
+    int i = 0; //i is the index for the for loop
     int toggle = 0; //toggle rotates through rows while setting them to 0
     int keyDetect = 0;  //counts the number of keys detected
     char key = -1;
-
-//    IEC1bits.CNIE = 0;
-
-
-
-
 
     //This loop runs through and sets each row individually to 1 while checking column inputs to determine which key is pressed
     for (i = 0; i < 4; i++){
@@ -296,20 +176,20 @@ char KeypadScan() {
         DelayUs(1);
 
 
-        if (PORTBbits.RB5 == 0) {
-            if (i == 0){
+        if (PORTBbits.RB11 == 0) {
+            if (i == 3){
                 key = '1';
                 keyDetect++;
             }
-            else if (i == 1){
+            else if (i == 2){
                 key = '4';
                 keyDetect++;
             }
-            else if (i == 2){
+            else if (i == 1){
                 key = '7';
                 keyDetect++;
             }
-            else if (i == 3){
+            else if (i == 0){
                 key = '*';
                 keyDetect++;
             }
@@ -354,22 +234,35 @@ char KeypadScan() {
         }
     }
 
-    if (keyDetect == 1) { //check if more than one key is pressed and return special character if so
-    return key;
+    if (keyDetect > 1) { //check if more than one key is pressed and return special character if so
+        LCDMoveCursor(1,0);
+	LCDPrintString("s");
+        LCDMoveCursor(0,0);
+        keyDetect=0;
+        key=-1;
+        LATA = LATA & 0xFFF0;  //reset rows to all 0
+        return key; //returns key found
     }
 
-    else { //check if no key is pressed
-
+    else if (keyDetect == 1) { //check if no key is pressed
+        keyDetect=0;
+        LATA = LATA & 0xFFF0;  //reset rows to all 0
+        return key;
+    }
+    else {
         key=-1;
+        keyDetect=0;
+        LATA = LATA & 0xFFF0;  //reset rows to all 0
+        return key;
     }
     //LATB = LATB & 0x0FFF;  //reset rows to all 0
-    LATA = LATA & 0xFFF0;  //reset rows to all 0
+    
 
 
 // do we need to reset anything else? (i.e. flags, etc)
 
 
-    return key; //returns key found
+
 
 }
 
