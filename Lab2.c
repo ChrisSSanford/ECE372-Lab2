@@ -72,6 +72,7 @@ int main(void)
         char database[4][4];
         int i = 0;
         int j = 0;
+        int numChars = 0;
 
         //Initalize database
         for (i=0; i<4; ++i) {
@@ -138,7 +139,9 @@ int main(void)
                                 }
                             else {
                                 password[0]=key;
+                                KeypadInitialize();
                                 state = 2;
+                                numChars=1;
                             }
                         }
                         
@@ -146,27 +149,37 @@ int main(void)
             //State 2: Enter Password
             case 2:
                for (i=1; i<4; ++i) {
+                    scanKeypad = 0;
                     while (scanKeypad!=1);
+                    scanKeypad=0;
                     key=KeypadScan();
+                    if (key == -1) {
+                        --i;
+                        continue;
+                    }
                     if( key != -1 ) {
                         LCDMoveCursor(1,i);
                         LCDPrintChar(key);
+                        KeypadInitialize();
                         if ((key == '#')||(key == '*')) {
+                            LCDMoveCursor(0,7);
+                            LCDPrintChar('*');
                             state=4;
-                            break;
+                            i=4;
                         }
                         else {
                             password[i]=key;
+                            numChars++;
                         }
                     }
-                    else {
-                        --i;
-                    }
                 }
-                state=3;
+                if (numChars == 4) {
+                    state=3;
+                }
                 break;
                 
             //State 3: Check Password
+            case 3:
                 LCDMoveCursor(0,0);
                 LCDPrintString("Check");
                 state = 6;
@@ -188,6 +201,7 @@ int main(void)
                 T4CONbits.TON = 1;
                 while(timerFlag!=1);
                 timerFlag=0;
+                T4CONbits.TON = 0;
                 state=0;
                 LCDClear();
                 break;
