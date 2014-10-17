@@ -51,18 +51,41 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 // and the KeypadScan() function needs to be called.
 
 volatile char scanKeypad;
+volatile char password[4];
 volatile int state = 0;
 volatile int timerFlag=0;
 
 // ******************************************************************************************* //
+// ******************************************************************************************* //
+//Initialize password function
+void PasswordArrayInit(void) {
+    int i = 0;
 
+	for (i=0; i<4; ++i) {
+        password[i]='\0';
+    }
+}
+// ******************************************************************************************* //
 int main(void)
 {
 	char key;
-        char password[4];
+        char database[4][4];
+        int i = 0;
+        int j = 0;
 
+        //Initalize database
+        for (i=0; i<4; ++i) {
+            for (j=0; j<4; ++j) {
+                database[i][j]='\0';
+            }
+        }
+        //Set default password
+        for (j=0; j<4; ++j){
+            database[0][j]=j+1;
+        }
+        //Initalize Password array
+        PasswordArrayInit();
 
-	
 	// TODO: Initialize and configure IOs, LCD (using your code from Lab 1), 
 	// UART (if desired for debugging), and any other configurations that are needed.
 
@@ -122,14 +145,31 @@ int main(void)
                     break;
             //State 2: Enter Password
             case 2:
+               for (i=1; i<4; ++i) {
+                    while (scanKeypad!=1);
+                    key=KeypadScan();
+                    if( key != -1 ) {
+                        LCDMoveCursor(1,i);
+                        LCDPrintChar(key);
+                        if ((key == '#')||(key == '*')) {
+                            state=4;
+                            break;
+                        }
+                        else {
+                            password[i]=key;
+                        }
+                    }
+                    else {
+                        --i;
+                    }
+                }
+                state=3;
+                break;
+                
+            //State 3: Check Password
                 LCDMoveCursor(0,0);
-                LCDPrintString("Good");
+                LCDPrintString("Check");
                 state = 6;
-//                PasswordArrayInit();
-//                LCDClear();
-//                LCDMoveCursor(0,0);
-//                LCDPrintString("Bad");
-//                state=6;
                 break;
 
             //State 4: Bad Password
@@ -137,11 +177,6 @@ int main(void)
                 LCDMoveCursor(0,0);
                 LCDPrintString("Bad");
                 state = 6;
-//                PasswordArrayInit();
-//                LCDClear();
-//                LCDMoveCursor(0,0);
-//                LCDPrintString("Bad");
-//                state=6;
                 break;
 
             //State 6: Timer Countdown
@@ -162,11 +197,6 @@ int main(void)
                 LCDMoveCursor(0,0);
                 LCDPrintString("Set Mode");
                 state = 6;
-//                PasswordArrayInit();
-//                LCDClear();
-//                LCDMoveCursor(0,0);
-//                LCDPrintString("Bad");
-//                state=6;
                 break;
 		
 	}
