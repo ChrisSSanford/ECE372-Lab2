@@ -239,9 +239,62 @@ int main(void)
             case 7:
                 LCDMoveCursor(0,0);
                 LCDPrintString("Set Mode");
-                state = 6;
+                for (i=0; i<5; ++i) {
+                    while (scanKeypad!=1);
+                    key=KeypadScan();
+                    if( key != -1 ) {
+                        LCDMoveCursor(1,i);
+                        LCDPrintChar(key);
+                        if ((key == '#')&&(i==4)) {
+                            state=8;
+                            break;
+                        }
+                        else if ((key == '*')||((key == '#')&&(i==4))){
+                            state = 9;
+                            break;
+                        }
+                        else {
+                            password[i]=key;
+                        }
+                    }
+                    else {
+                        --i;
+                    }
+                }
                 break;
-		
+                
+                //State 8: Store password
+                case 8:
+                    LCDMoveCursor(0,0);
+                    LCDPrintString("goodpassw");
+//                for (i=0; i<4; ++i) {
+//                    if (database[i][0]=='\0'){
+//                        for (j=0; j<4; ++j) {
+//                            database[i][j]=password[j];
+//                        }
+//                    }
+//                }
+                state=10;
+                break;
+
+            //State 9: An ivalid password was entered. Print "invalid" and go to timer
+            //countdown state.
+                case 9:
+                    PasswordArrayInit();
+                    LCDClear();
+                    LCDMoveCursor(0,0);
+                    LCDPrintString("Invalid");
+                    state=6;
+                    break;
+            //State 10: A valid password was entered. Print "valid" and go to timer
+            //countdown state.
+                case 10:
+                    PasswordArrayInit();
+                    LCDClear();
+                    LCDMoveCursor(0,0);
+                    LCDPrintString("Valid");
+                    state=6;
+                    break;
 	}
         }
 	return 0;
