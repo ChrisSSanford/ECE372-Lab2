@@ -74,6 +74,7 @@ int main(void)
         int j = 0;
         int numChars = 0;
         int numsMatched = 0;
+        int foundRoom = 0;
 
         //Initalize database
         for (i=0; i<4; ++i) {
@@ -258,6 +259,9 @@ int main(void)
                             state = 9;
                             i=5;
                         }
+                        else if ((i==4)&& (key != '#')) {
+                            state = 9;
+                        }
                         else {
                             password[i]=key;
                         }
@@ -269,12 +273,24 @@ int main(void)
                 case 8:
                 for (i=0; i<4; ++i) {
                     if (database[i][0]=='\0'){
+                        foundRoom=1;
                         for (j=0; j<4; ++j) {
                             database[i][j]=password[j];
                         }
+                        i=4;
                     }
                 }
-                state=10;
+                if (foundRoom==1){
+                    state=10;
+                    foundRoom=0;
+                }
+                else {
+                    LCDClear();
+                    LCDMoveCursor(0,0);
+                    LCDPrintString("No Room");
+                    KeypadInitialize();
+                    state = 6;
+                }
                 break;
 
             //State 9: An ivalid password was entered. Print "invalid" and go to timer
@@ -315,6 +331,7 @@ int main(void)
                             state=4;
                         }
                     }
+                    break;
 	}
         }
 	return 0;
