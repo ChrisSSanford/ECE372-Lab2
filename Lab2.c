@@ -82,9 +82,13 @@ int main(void)
             }
         }
         //Set default password
-        for (j=0; j<4; ++j){
-            database[0][j]=j+1;
-        }
+        database[0][0]='1';
+        database[0][1]='2';
+        database[0][2]='3';
+        database[0][3]='4';
+//        for (j=0; j<4; ++j){
+//            database[0][j]=(char)(j+1);
+//        }
         //Initalize Password array
         PasswordArrayInit();
 
@@ -181,6 +185,8 @@ int main(void)
                 
             //State 3: Check Password
             case 3:
+                LCDMoveCursor(0,0);
+                LCDPrintString("Checking");
                numsMatched=0;
                 for (i=0; i<4; ++i) {
                     if (database[i][0]==password[0]){
@@ -191,6 +197,7 @@ int main(void)
                             }
                         }
                         if (numsMatched==4) {
+                            i=4;
                             state=5;
                         }
                         else {
