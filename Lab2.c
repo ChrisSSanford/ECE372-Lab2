@@ -238,6 +238,7 @@ int main(void)
             case 7:
                 LCDMoveCursor(0,0);
                 LCDPrintString("Set Mode");
+                DelayUs(1000);
                 for (i=0; i<5; ++i) {
                     while (scanKeypad!=1);
                     key=KeypadScan();
@@ -294,6 +295,7 @@ int main(void)
                     LCDPrintString("Valid");
                     state=6;
                     break;
+
                 //check to enter set password mode
                 case 11:
                     scanKeypad = 0;
