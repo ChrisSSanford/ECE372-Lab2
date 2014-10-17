@@ -140,7 +140,8 @@ int main(void)
                                 state=4;
                             }
                             else if (key == '*') {
-                                state = 7;
+                                KeypadInitialize();
+                                state = 11;
                                 }
                             else {
                                 password[0]=key;
@@ -167,8 +168,6 @@ int main(void)
                         LCDPrintChar(key);
                         KeypadInitialize();
                         if ((key == '#')||(key == '*')) {
-                            LCDMoveCursor(0,7);
-                            LCDPrintChar('*');
                             state=4;
                             i=4;
                         }
@@ -295,6 +294,23 @@ int main(void)
                     LCDPrintString("Valid");
                     state=6;
                     break;
+                //check to enter set password mode
+                case 11:
+                    scanKeypad = 0;
+                    while (scanKeypad!=1);
+                    scanKeypad=0;
+                    key=KeypadScan();
+                    if( key != -1 ) {
+                        LCDMoveCursor(1,i);
+                        LCDPrintChar(key);
+                        KeypadInitialize();
+                        if (key == '*') {
+                            state=7;
+                        }
+                        else {
+                            state=4;
+                        }
+                    }
 	}
         }
 	return 0;
