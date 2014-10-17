@@ -123,6 +123,7 @@ int main(void)
             //State 0: Ready State
             //Wait for user input
                 case 0:
+                    LCDClear();
                     LCDMoveCursor(0,0);
                     LCDPrintString("Enter");
                     if( scanKeypad == 1 ) {
@@ -184,10 +185,9 @@ int main(void)
                 
             //State 3: Check Password
             case 3:
-                LCDMoveCursor(0,0);
-                LCDPrintString("Checking");
                numsMatched=0;
                 for (i=0; i<4; ++i) {
+                    state = 4;
                     if (database[i][0]==password[0]){
                         numsMatched=1;
                         for (j=1; j<4; ++j){
@@ -199,31 +199,28 @@ int main(void)
                             i=4;
                             state=5;
                         }
-                        else {
-                            state=4;
-                        }
                     }
                 }
                 break;
 
             //State 4: Bad Password
             case 4:
+                LCDClear();
                 LCDMoveCursor(0,0);
-                LCDPrintString("BooooBad");
+                LCDPrintString("Bad");
                 state = 6;
                 break;
 
             //State 5: Good Password
             case 5:
+                LCDClear();
                 LCDMoveCursor(0,0);
-                LCDPrintString("GeatJob");
+                LCDPrintString("Good");
                 state = 6;
                 break;
 
             //State 6: Timer Countdown
             case 6:
-                LCDMoveCursor(0,0);
-                LCDPrintString("Time");
                 TMR4 = 0;
                 TMR5 = 0;
                 T4CONbits.TON = 1;
@@ -236,59 +233,64 @@ int main(void)
 
             //State 7: Set Password
             case 7:
+                LCDClear();
                 LCDMoveCursor(0,0);
                 LCDPrintString("Set Mode");
-                DelayUs(1000);
+                KeypadInitialize();
                 for (i=0; i<5; ++i) {
+                    scanKeypad=0;
+                    key = -1;
+                    DelayUs(1000);
                     while (scanKeypad!=1);
+                    scanKeypad=0;
                     key=KeypadScan();
-                    if( key != -1 ) {
+                    if (key == -1) {
+                        --i;
+                    }
+                    else {
                         LCDMoveCursor(1,i);
                         LCDPrintChar(key);
+                        KeypadInitialize();
                         if ((key == '#')&&(i==4)) {
                             state=8;
-                            break;
                         }
-                        else if ((key == '*')||((key == '#')&&(i==4))){
+                        else if ((key == '*')||((key == '#')&&(i<4))){
                             state = 9;
-                            break;
+                            i=5;
                         }
                         else {
                             password[i]=key;
                         }
-                    }
-                    else {
-                        --i;
                     }
                 }
                 break;
                 
                 //State 8: Store password
                 case 8:
-                    LCDMoveCursor(0,0);
-                    LCDPrintString("goodpassw");
-//                for (i=0; i<4; ++i) {
-//                    if (database[i][0]=='\0'){
-//                        for (j=0; j<4; ++j) {
-//                            database[i][j]=password[j];
-//                        }
-//                    }
-//                }
+                for (i=0; i<4; ++i) {
+                    if (database[i][0]=='\0'){
+                        for (j=0; j<4; ++j) {
+                            database[i][j]=password[j];
+                        }
+                    }
+                }
                 state=10;
                 break;
 
             //State 9: An ivalid password was entered. Print "invalid" and go to timer
             //countdown state.
                 case 9:
-                    PasswordArrayInit();
                     LCDClear();
+                    PasswordArrayInit();
                     LCDMoveCursor(0,0);
                     LCDPrintString("Invalid");
                     state=6;
                     break;
+
             //State 10: A valid password was entered. Print "valid" and go to timer
             //countdown state.
                 case 10:
+                    LCDClear();
                     PasswordArrayInit();
                     LCDClear();
                     LCDMoveCursor(0,0);
@@ -303,7 +305,7 @@ int main(void)
                     scanKeypad=0;
                     key=KeypadScan();
                     if( key != -1 ) {
-                        LCDMoveCursor(1,i);
+                        LCDMoveCursor(1,1);
                         LCDPrintChar(key);
                         KeypadInitialize();
                         if (key == '*') {
