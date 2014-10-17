@@ -114,7 +114,7 @@ char KeypadScan() {
         toggle |= 0x0001; //replace the shifted in 0 with a 1 on toggle
         LATB &= toggle; //clear the selected bit in LATB, allowing one row to go to 0 (row0 --> row3)
         
-        DelayUs(50);
+        DelayUs(1000);
         
         if (PORTBbits.RB11 == 0) {
             if (i == 3){
