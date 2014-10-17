@@ -73,6 +73,7 @@ int main(void)
         int i = 0;
         int j = 0;
         int numChars = 0;
+        int numsMatched = 0;
 
         //Initalize database
         for (i=0; i<4; ++i) {
@@ -180,15 +181,36 @@ int main(void)
                 
             //State 3: Check Password
             case 3:
-                LCDMoveCursor(0,0);
-                LCDPrintString("Check");
-                state = 6;
+               numsMatched=0;
+                for (i=0; i<4; ++i) {
+                    if (database[i][0]==password[0]){
+                        numsMatched=1;
+                        for (j=1; j<4; ++j){
+                            if (database[i][j]==password[j]){
+                                numsMatched=numsMatched+1;
+                            }
+                        }
+                        if (numsMatched==4) {
+                            state=5;
+                        }
+                        else {
+                            state=4;
+                        }
+                    }
+                }
                 break;
 
             //State 4: Bad Password
             case 4:
                 LCDMoveCursor(0,0);
-                LCDPrintString("Bad");
+                LCDPrintString("BooooBad");
+                state = 6;
+                break;
+
+            //State 5: Good Password
+            case 5:
+                LCDMoveCursor(0,0);
+                LCDPrintString("GeatJob");
                 state = 6;
                 break;
 
