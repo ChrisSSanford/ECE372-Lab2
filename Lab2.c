@@ -93,7 +93,7 @@ int main(void)
         //Initalize Password array
         PasswordArrayInit();
 
-	// TODO: Initialize and configure IOs, LCD (using your code from Lab 1), 
+	// Initialized and configured IOs, LCD (using your code from Lab 1),
 	// UART (if desired for debugging), and any other configurations that are needed.
 
 	// Initialize 32-bit timer
@@ -112,7 +112,7 @@ int main(void)
 	KeypadInitialize();
 
 	
-	// TODO: Initialize scanKeypad variable.
+	// Initialized scanKeypad variable.
         scanKeypad = 0;
 
         LCDPrintString("Hello");
@@ -369,10 +369,10 @@ void __attribute__((interrupt,auto_psv)) _T5Interrupt(void){
 // to ensure additional interrupts can be processed. 
 void __attribute__((interrupt)) _CNInterrupt(void)
 {	
-	// TODO: Clear interrupt flag
+	// Clear interrupt flag
 	IFS1bits.CNIF = 0;
 	
-	// TODO: Detect if *any* key of the keypad is *pressed*, and update scanKeypad
+	// Detect if *any* key of the keypad is *pressed*, and update scanKeypad
 	// variable to indicate keypad scanning process must be executed.
     scanKeypad = 1;
 }

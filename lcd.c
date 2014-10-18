@@ -107,7 +107,7 @@ void EnableLCD(unsigned char commandType, unsigned usDelay) {
 
 // ******************************************************************************************* //
 
-// TODO: WriteLCD function should write either control instruciton of data characters to the
+// WriteLCD function writes either control instruciton of data characters to the
 // LCD display using the 4-bit interface. This function will handled the bit masking and shifting
 // to write the individual 4-bit nibbles to the LCD data inputs. Control instructions
 // are written in the commandType is 0 (LCD_WRITE_CONTROL), and ASCII characters are written
@@ -120,7 +120,7 @@ void EnableLCD(unsigned char commandType, unsigned usDelay) {
 
 void WriteLCD(unsigned char word, unsigned commandType, unsigned usDelay) {
 
-	// TODO: Using bit masking and shift operations, write most significant bits to correct
+	// Using bit masking and shift operations, write most significant bits to correct
 	// bits of the LCD_D signal (i.e. #define used to map internal name to LATB)
 	// and enable the LCD for the correct command.
 

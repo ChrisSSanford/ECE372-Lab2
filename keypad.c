@@ -15,6 +15,8 @@
  */
 
 /*
+ * Definition of our pins
+ *
  * Row0 = Out2 => Pin2 = RB12
  * Row1 = Out7 => Pin3 = RB13
  * Row2 = Out6 => Pin9 = RB14
@@ -116,7 +118,7 @@ char KeypadScan() {
         
         DelayUs(1000);
         
-        if (PORTBbits.RB11 == 0) {
+        if (PORTBbits.RB11 == 0) {  // if statements for our key detection
             if (i == 3){
                 key = '#';
                 keyDetect++;
